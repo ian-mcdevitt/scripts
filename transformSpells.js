@@ -97,7 +97,7 @@ function transformDescription (entries) {
         } else {
             switch (entry.type) {
                 case 'entries':
-                    output += `<i>${entry.name}</i> ${entry.entries.join('\\n')}`
+                    output += `<i><b>${entry.name}</b></i> ${entry.entries.join('\\n')}\\n`
                     break
                 case 'list':
                     output += `<ul><li>${entry.items.join('</li><li>')}</li></ul>`
@@ -140,9 +140,10 @@ function transformSpells (spells) {
             classes: transformClasses(spell.classes),
             description: transformDescription(spell.entries),
             at_higher_levels: transformHigherLevel(spell.entriesHigherLevel),
+            ritual: spell.meta && spell.meta.ritual === true ? 'TRUE' : 'FALSE',
             source: spell.source
         }
-        inserts.push(`INSERT INTO spells (name, school, level, \`action\`, \`range\`, components, duration, classes, description, at_higher_levels, source) VALUES ("${obj.name}", "${obj.school}", "${obj.level}", "${obj.action}", "${obj.range}", "${obj.components}", "${obj.duration}", "${obj.classes}", "${obj.description}", ${obj.at_higher_levels}, "${obj.source}");`)
+        inserts.push(`INSERT INTO spells (name, school, level, \`action\`, \`range\`, components, duration, classes, description, at_higher_levels, ritual, source) VALUES ("${obj.name}", "${obj.school}", "${obj.level}", "${obj.action}", "${obj.range}", "${obj.components}", "${obj.duration}", "${obj.classes}", "${obj.description}", ${obj.at_higher_levels}, ${obj.ritual}, "${obj.source}");`)
     }
     inserts.push('DELETE from spells where name LIKE \'%(UA)%\';')
     return inserts
