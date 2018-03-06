@@ -97,7 +97,7 @@ function transformDescription (entries) {
         } else {
             switch (entry.type) {
                 case 'entries':
-                    output += `<i><b>${entry.name}</b></i> ${entry.entries.join('\\n')}\\n`
+                    output += `<i><b>${entry.name}:</b></i> ${entry.entries.join('\\n')}\\n`
                     break
                 case 'list':
                     output += `<ul><li>${entry.items.join('</li><li>')}</li></ul>`
