@@ -1,5 +1,5 @@
 // WHERE I GOT THESE SPELLS: https://lithdoran.github.io/fiveetools/spells.html
-const spells = require('./spells.js').spells
+const { spells, teleport } = require('./spells.js')
 const fs = require('fs')
 
 function transformSchool (school) {
@@ -142,6 +142,9 @@ function transformSpells (spells) {
             at_higher_levels: transformHigherLevel(spell.entriesHigherLevel),
             ritual: spell.meta && spell.meta.ritual === true ? 'TRUE' : 'FALSE',
             source: spell.source
+        }
+        if (spell.name === 'Teleport') {
+            obj.description = teleport
         }
         inserts.push(`INSERT INTO spells (name, school, level, \`action\`, \`range\`, components, duration, classes, description, at_higher_levels, ritual, source) VALUES ("${obj.name}", "${obj.school}", "${obj.level}", "${obj.action}", "${obj.range}", "${obj.components}", "${obj.duration}", "${obj.classes}", "${obj.description}", ${obj.at_higher_levels}, ${obj.ritual}, "${obj.source}");`)
     }
