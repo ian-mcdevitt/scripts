@@ -1,1 +1,1 @@
-/opt/android-studio/tools/bin/sdkmanager --licenses
+/home/ian/Android/Sdk/tools/bin/sdkmanager --licenses
